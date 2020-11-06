@@ -1,0 +1,27 @@
+version: '3.1'
+
+services: 
+  db:
+    container_name: db
+    image: postgres
+    restart: always
+    ports: 
+      - '5433:5432'
+    environment:
+      POSTGRES_PASSWORD: 'postgres'
+
+  app:
+    container_name: app
+    build: ./app
+    command: ["./wait_for_it.sh", "db:5433", "--", "npm", "run", "dev"]
+    depends_on:
+      - db
+    environment:
+      - DB_HOST=db
+    restart: on-failure
+    ports:
+      - "3001:3000"
+      - "9229:9229"
+    volumes:
+      - ./app:/home/app/
+      - /home/app/node_modules
