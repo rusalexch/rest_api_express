@@ -2,21 +2,21 @@ version: '3.1'
 
 services: 
   db:
-    container_name: db
+    container_name: db_test
     image: postgres
     restart: always
     ports: 
       - '5433:5432'
     environment:
       POSTGRES_PASSWORD: 'postgres'
-      POSTGRES_DB: 'rest_api'
+      POSTGRES_DB: 'test'
     volumes:
-      - ./db:/var/lib/postgresql/data
+      - ./db_test:/var/lib/postgresql/data
 
   app:
-    container_name: app
+    container_name: app_test
     build: ./app
-    command: ["./wait_for_it.sh", "db:5433", "--", "npm", "run", "dev"]
+    command: ["./wait_for_it.sh", "db:5433", "--", "npm", "run", "test"]
     depends_on:
       - db
     environment:

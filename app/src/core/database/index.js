@@ -12,6 +12,7 @@ const sequelize = new Sequelize(database, username, password, {
   host,
   dialect: 'postgres',
   port,
+  logging: process.env.NODE_ENV === 'test' ? false : console.log(),
 });
 
 async function connect() {
