@@ -2,4 +2,6 @@ app/node_modules
 
 .env
 app/.env
+
 .vscode/
+app/logs/
