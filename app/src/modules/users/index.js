@@ -1,9 +1,12 @@
-async function bootstrap(dbClient) {
-  const model = require('./model')
-  const User = dbClient.define(model.name, model.fields);
-  dbClient.models[model.name]
-  console.log(User === dbClient.models[model.name])
+const controller = require('./user.controller');
+const UserEntity = require('./user.model');
+
+async function bootstrap(dbClient, app) {
+  const { name, fields } = UserEntity.model;
+  const User = dbClient.define(name, fields);
+
   User.sync();
+  app.use('/users', controller(User, UserEntity));
 }
 
-module.exports = bootstrap
+module.exports = bootstrap;
