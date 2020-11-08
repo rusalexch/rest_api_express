@@ -27,4 +27,4 @@ services:
       - "9229:9229"
     volumes:
       - ./app:/home/app/
-      - /home/app/node_modules
+      - ./app/node_modules:/home/app/node_modules
