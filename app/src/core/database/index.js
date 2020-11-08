@@ -1,4 +1,5 @@
 const { Sequelize } = require('sequelize');
+const logger = require('../config/winston');
 
 const {
   DB_HOST: host,
@@ -12,18 +13,13 @@ const sequelize = new Sequelize(database, username, password, {
   host,
   dialect: 'postgres',
   port,
-  logging: process.env.NODE_ENV === 'test' ? false : console.log(),
+  logging: process.env.NODE_ENV === 'test' ? false : (msg) => logger.info(msg),
 });
 
-async function connect() {
-  try {
-    await sequelize.authenticate();
-    // eslint-disable-next-line no-console
-    console.log('Connection has been established successfully.');
-  } catch (error) {
-    // eslint-disable-next-line no-console
-    console.error('Unable to connect to the database:', error);
-  }
-}
+sequelize.authenticate()
+  .then(() => {
+    logger.info('Connection with DATABASE has been established successfully.');
+  })
+  .catch(logger.error);
 
-module.exports = { connect, client: sequelize };
+module.exports = { client: sequelize };

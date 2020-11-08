@@ -1,5 +1,9 @@
 const winston = require('winston');
 
+const {
+  printf, combine, timestamp, colorize,
+} = winston.format;
+
 const options = {
   file: {
     level: 'info',
@@ -18,11 +22,20 @@ const options = {
   },
 };
 
+const myFormat = printf(({
+  level, message, timestamp: time,
+}) => `[${level} : ${time}] \n\t${message}`);
+
 const logger = winston.createLogger({
   transports: [
     new winston.transports.File(options.file),
     new winston.transports.Console(options.console),
   ],
+  format: combine(
+    colorize(),
+    timestamp(),
+    myFormat,
+  ),
   exitOnError: false,
 });
 
