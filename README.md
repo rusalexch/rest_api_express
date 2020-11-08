@@ -15,4 +15,7 @@
 
     ```docker-compose up --build ```
     
+# API развернут по адресу api.alexserg.ru
+    
 P.S. работоспособность проверялась на Ubuntu.
+
