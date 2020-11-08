@@ -41,7 +41,7 @@ function createValidator(entity) {
     errors.push('username mast be more than 3 characters');
   }
   if (!password) {
-    errors.push('password is reqired');
+    errors.push('password is required');
   } else if (password.toString().length < 6) {
     errors.push('password mast be more than 6 characters');
   }

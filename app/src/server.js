@@ -4,7 +4,7 @@ const cors = require('cors');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const winston = require('./core/config/winston');
-const user = require('./modules/users/index');
+const modules = require('./modules');
 
 if (process.env.NODE_ENV === 'test') {
   dotenv.config({ path: `${process.cwd()}/.test.env` });
@@ -13,7 +13,6 @@ if (process.env.NODE_ENV === 'test') {
 }
 
 const { APP_PORT: port } = process.env;
-const db = require('./core/database');
 
 const app = express();
 app.use(cors());
@@ -26,7 +25,7 @@ app.get('/', (req, res) => {
   res.sendStatus(200);
 });
 
-user(db.clien, app);
+modules(app);
 
 const server = app.listen(port, () => {
   // eslint-disable-next-line no-console
