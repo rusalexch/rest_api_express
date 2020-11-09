@@ -16,6 +16,7 @@
     ```docker-compose up --build ```
     
 # API развернут по адресу api.alexserg.ru
+# Swagger - api.alexserg.ru/api-docs/
     
 P.S. работоспособность проверялась на Ubuntu.
 
