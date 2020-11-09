@@ -5,6 +5,7 @@ const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const session = require('express-session');
 const logger = require('./core/config/winston');
+const swagger = require('./core/swager');
 
 if (process.env.NODE_ENV === 'test') {
   dotenv.config({ path: `${process.cwd()}/.test.env` });
@@ -35,6 +36,8 @@ modules(app);
 app.get('/', (req, res) => {
   res.sendStatus(200);
 });
+
+swagger(app);
 
 const server = app.listen(port, () => {
   logger.log('info', `Server runing at http://localhost:${port}`);
