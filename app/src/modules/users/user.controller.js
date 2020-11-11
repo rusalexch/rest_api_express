@@ -243,7 +243,6 @@ module.exports = (validators, userService) => {
    *        '204':
    *          description: The User was deleted
    */
-
   router.delete('', jwtGuard, async (req, res) => {
     const { user } = req;
     userService.remove(user.id);

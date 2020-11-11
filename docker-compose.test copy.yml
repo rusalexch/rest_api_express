@@ -1,7 +1,7 @@
 version: '3.1'
 
 services: 
-  db_test:
+  db:
     container_name: db_test
     image: postgres
     restart: always
@@ -12,17 +12,19 @@ services:
       POSTGRES_DB: 'test'
     volumes:
       - ./db_test:/var/lib/postgresql/data
-  app_test:
+
+  app:
     container_name: app_test
     build: ./app
     command: ["./wait_for_it.sh", "db:5433", "--", "npm", "run", "test"]
     depends_on:
-      - db_test
+      - db
     environment:
-      - DB_HOST=db_test
+      - DB_HOST=db
     restart: on-failure
     ports:
       - "3001:3000"
       - "9229:9229"
     volumes:
       - ./app:/home/app/
+      - /home/app/node_modules

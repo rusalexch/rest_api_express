@@ -22,13 +22,13 @@ app.use(cors());
 app.use(bodyParser.json());
 if (process.env.NODE_ENV !== 'test') {
   app.use(morgan('combined', { stream: logger.stream }));
+  app.use(session({
+    secret: process.env.SECRET,
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: true },
+  }));
 }
-app.use(session({
-  secret: process.env.SECRET,
-  resave: false,
-  saveUninitialized: true,
-  cookie: { secure: true },
-}));
 app.use(bodyParser.urlencoded({ extended: false }));
 
 modules(app);

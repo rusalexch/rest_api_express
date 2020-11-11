@@ -14,7 +14,12 @@
 4. вернуться на уровень выше, и запустить команду 
 
     ```docker-compose up --build ```
-    
+
+5. Для запуска тестов, проделать операции с 1 по 3, если не делали, и запустить:
+
+    ```docker-compose -f docker-compose.test.yml up --build```
+
+   
 # API развернут по адресу api.alexserg.ru
 # Swagger - api.alexserg.ru/api-docs/
     
